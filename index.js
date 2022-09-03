@@ -1,33 +1,32 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * ORDER-BUILDER
- * @param queryOrder {Array}
- * @param aliases {Object}
- * @param defaultOrder {Array}
- * @param options {{
- *   descNullsLast: boolean?
- * }?}
- * @return {Array}
+ * @param queryOrder {TQueryOrder}
+ * @param orders {object}
+ * @param defaultOrders {any[]?}
+ * @param options {IOptions?}
+ * @return {any[]}
  */
-module.exports = (queryOrder, aliases, defaultOrder, options) => {
-  defaultOrder ||= []
-
-  if (queryOrder) {
-    const [alias, orderBy] = queryOrder
-
-    if (['ASC', 'DESC'].includes(orderBy)) {
-      for (const [_alias, order] of Object.entries(aliases)) {
-        if (alias === _alias) {
-          if (orderBy === 'DESC' && options.descNullsLast) {
-            order.push(orderBy + ' NULLS LAST')
-          } else {
-            order.push(orderBy)
-          }
-
-          return [order, ...defaultOrder]
+function default_1(queryOrder, orders, defaultOrders, options) {
+    defaultOrders ||= [];
+    options ||= {};
+    if (queryOrder) {
+        const [col, orderBy] = queryOrder;
+        if (['ASC', 'DESC'].includes(orderBy)) {
+            for (const [_col, order] of Object.entries(orders)) {
+                if (_col === col) {
+                    if (orderBy === 'DESC' && options.descNullsLast) {
+                        order.push(orderBy + ' NULLS LAST');
+                    }
+                    else {
+                        order.push(orderBy);
+                    }
+                    return [order, ...defaultOrders];
+                }
+            }
         }
-      }
     }
-  }
-
-  return defaultOrder
+    return defaultOrders;
 }
+exports.default = default_1;
