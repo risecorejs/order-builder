@@ -16,17 +16,15 @@ export default function (queryOrder: TQueryOrder, orders: object, defaultOrders?
   if (queryOrder) {
     const [col, orderBy] = queryOrder
 
-    if (['ASC', 'DESC'].includes(orderBy)) {
-      for (const [_col, order] of Object.entries(orders)) {
-        if (_col === col) {
-          if (orderBy === 'DESC' && options.descNullsLast) {
-            order.push(orderBy + ' NULLS LAST')
-          } else {
-            order.push(orderBy)
-          }
-
-          return [order, ...defaultOrders]
+    for (const [_col, order] of Object.entries(orders)) {
+      if (_col === col) {
+        if (orderBy === 'DESC' && options.descNullsLast) {
+          order.push(orderBy + ' NULLS LAST')
+        } else {
+          order.push(orderBy)
         }
+
+        return [order, ...defaultOrders]
       }
     }
   }
