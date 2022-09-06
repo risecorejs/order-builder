@@ -18,3 +18,11 @@ export default function (): express.Handler {
     next()
   }
 }
+
+declare global {
+  namespace Express {
+    interface Request {
+      orderBuilder(orders: object, defaultOrders?: any[], options?: IOptions): any[]
+    }
+  }
+}
