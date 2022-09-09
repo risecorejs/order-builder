@@ -1,9 +1,9 @@
 import express from 'express'
 
+import orderBuilder from './index'
+
 import { IOptions } from './interfaces'
 import { TQueryOrder } from './types'
-
-import orderBuilder from './index'
 
 /**
  * MIDDLEWARE
@@ -21,7 +21,7 @@ export default function (): express.Handler {
 
 declare global {
   namespace Express {
-    interface Request {
+    export interface Request {
       orderBuilder(orders: object, defaultOrders?: any[], options?: IOptions): any[]
     }
   }
