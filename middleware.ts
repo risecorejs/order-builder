@@ -1,4 +1,5 @@
 import express from 'express'
+import { Order } from 'sequelize'
 
 import orderBuilder from './index'
 
@@ -11,7 +12,7 @@ import { TQueryOrder } from './types'
  */
 export default function (): express.Handler {
   return function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    req.orderBuilder = (orders: object, defaultOrders?: any[], options?: IOptions) => {
+    req.orderBuilder = (orders: object, defaultOrders?: any[], options?: IOptions): Order => {
       return orderBuilder(<TQueryOrder>req.query.order, orders, defaultOrders, options)
     }
 
@@ -22,7 +23,7 @@ export default function (): express.Handler {
 declare global {
   namespace Express {
     export interface Request {
-      orderBuilder(orders: object, defaultOrders?: any[], options?: IOptions): any[]
+      orderBuilder(orders: object, defaultOrders?: any[], options?: IOptions): Order
     }
   }
 }

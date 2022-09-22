@@ -1,3 +1,5 @@
+import { Order } from 'sequelize'
+
 import { IOptions } from './interfaces'
 import { TQueryOrder } from './types'
 
@@ -9,7 +11,7 @@ import { TQueryOrder } from './types'
  * @param options {IOptions?}
  * @return {any[]}
  */
-export default function (queryOrder: TQueryOrder, orders: object, defaultOrders?: any[], options?: IOptions) {
+export default function (queryOrder: TQueryOrder, orders: object, defaultOrders?: any[], options?: IOptions): Order {
   defaultOrders ||= []
   options ||= {}
 
